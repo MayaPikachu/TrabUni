@@ -125,6 +125,15 @@ class Node:
         self.keys.pop(index)
         self.child.pop(index + 1)
 
+    def _inorder(self):
+        if self._isLeaf():
+            print(self.keys, end=' ')
+        else:
+            for i in range(len(self.child)):
+                self.child[i]._inorder()
+                if i < len(self.keys):
+                    print(self.keys[i], end=' ')
+
 
 
 class Tree234:
@@ -164,7 +173,7 @@ class Tree234:
 
 
     def remove(self, key):
-        print("Removendo ", key, "\n")
+        print("Removendo: ", key, "\n")
         if self.root is None:
             return False
         if len(self.root.keys) == 1 and len(self.root.child) == 0:
@@ -181,6 +190,10 @@ class Tree234:
 
         return result
 
+    def inorder(self):
+        print('\n Impressão em ordem\n')
+        self.root._inorder()
+
         
 
 def main():
@@ -189,13 +202,21 @@ def main():
     tree.insert(10)
     tree.insert(20)
     tree.insert(30)
+    tree.insert(55)
+    tree.insert(71)
+    tree.insert(3)
     
     tree.visualize()
     tree.preorder()
+    tree.inorder()
     
-    tree.remove(10)
+    for x in range(100):
+        if x % 2 == 0:
+            tree.remove(x)
 
     tree.visualize()
     tree.preorder()
+    tree.inorder()
+
 
 main()
