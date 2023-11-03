@@ -1,3 +1,5 @@
+import random
+
 class Node:
     def __init__(self, keys, par = None):
         self.keys = list([keys])
@@ -178,9 +180,6 @@ class Tree234:
         return result
 
         
-
-
-import random
 
 def main():
     tree = Tree234()
