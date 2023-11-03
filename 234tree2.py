@@ -143,7 +143,8 @@ class Tree234:
 
     def preorder(self):
         print('\n Impressao em pre-ordem\n')
-        self.root._preorder()
+        if self.root:
+            self.root._preorder()
 
     def visualize(self):
         print('\n Estrutura de arvore (visual em largura)')
@@ -154,11 +155,12 @@ class Tree234:
             print('\n')
             
             for n in this_level:
-                print (str(n.keys), end = ' ')
-                
-                for child in n.child:
-                    next_level.append(child)
-                this_level = next_level
+                if n:
+                    print (str(n.keys), end = ' ')
+                    
+                    for child in n.child:
+                        next_level.append(child)
+                    this_level = next_level
 
 
     def remove(self, key):
