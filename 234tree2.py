@@ -75,16 +75,19 @@ class Node:
             elif not self._isLeaf():
                 index = self.keys.index(key)
                 if len(self.child[index].keys) > 1:
+                    # Se o filho à esquerda da chave tem mais de uma chave, substitui pela maior chave do filho à esquerda
                     predecessor = self._getPredecessor(index)
                     self.keys[index] = predecessor
                     self.child[index]._remove(predecessor)
                     return True
                 elif len(self.child[index + 1].keys) > 1:
+                    # Se o filho à direita da chave tem mais de uma chave, substitui pela menor chave do filho à direita
                     successor = self._getSuccessor(index)
                     self.keys[index] = successor
                     self.child[index + 1]._remove(successor)
                     return True
                 else:
+                    # Se ambos os filhos têm apenas uma chave, funde os filhos e a chave
                     self._mergeChildren(index)
                     if len(self.keys) == 0:
                         return True
@@ -92,12 +95,15 @@ class Node:
         if self._isLeaf():
             return False
 
+        # Encontra o índice correto para o filho apropriado
         index = 0
         while index < len(self.keys) and key > self.keys[index]:
             index += 1
 
+        # Chama recursivamente o método _remove para o filho apropriado
         if self.child[index]._remove(key):
             if len(self.child[index].keys) == 0:
+                # Se o filho ficar vazio após a remoção, funde os filhos e a chave
                 self._mergeChildren(index)
                 if len(self.keys) == 0:
                     return True
