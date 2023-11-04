@@ -212,33 +212,36 @@ class Tree234:
 
 def insert_and_remove_demo():
     tree = Tree234()
-    
-    # Inserir valores aleatorios
-    tree.insert(10)
-    tree.insert(20)
-    tree.insert(30)
-    tree.insert(92)
-    tree.insert(55)
-    tree.insert(71)
-    tree.insert(74)
-    tree.insert(39)
-    tree.insert(3)
-    
-    tree.visualize()
-    tree.preorder()
-    tree.inorder()
-    
-    # Remover valores pares
-    for x in range(100):
-        if x % 2 == 0:
-            tree.remove(x)
 
-    tree.visualize()
-    tree.preorder()
-    tree.inorder()
-        
+    def insert(tree, val):
+        tree.insert(val)
+        tree.visualize()
+        print("\n" + "-"*40 + "\n\n")
+    
+    def remove(tree, val):
+        tree.remove(val)
+        tree.visualize()
+        print("\n" + "-"*40 + "\n\n")
+    
+    insert(tree, 10)
+    insert(tree, 20)
+    insert(tree, 30)
+    insert(tree, 92)
+    insert(tree, 55)
+    insert(tree, 71)
+    insert(tree, 74)
+    insert(tree, 39)
+    insert(tree, 3)
+    insert(tree, 100)
+    
+    remove(tree, 55)
+    remove(tree, 10)
+    remove(tree, 55)
+
 
 def main():
     insert_and_remove_demo()
 
-main()
+if __name__ == '__main__': main()
+
+
