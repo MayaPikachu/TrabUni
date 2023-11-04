@@ -113,21 +113,30 @@ class Node:
     def _getPredecessor(self, index):
         current = self.child[index]
         while not current._isLeaf():
-            current = current.child[-1]
-        return current.keys[-1]
+            current = current.child[-1] # Percorre para o filho mais à direita
+        return current.keys[-1] # Retorna a última chave do filho mais à direita
 
     def _getSuccessor(self, index):
         current = self.child[index + 1]
         while not current._isLeaf():
-            current = current.child[0]
-        return current.keys[0]
+            current = current.child[0] # Percorre para o filho mais à esquerda
+        return current.keys[0] # Retorna a primeira chave do filho mais à esquerda
 
     def _mergeChildren(self, index):
+        # Funde dois filhos do nó atual, junto com a chave correspondente
         left_child = self.child[index]
         right_child = self.child[index + 1]
+
+        # Adiciona a chave correspondente ao filho à esquerda
         left_child.keys.append(self.keys[index])
+
+        # Adiciona as chaves do filho à direita ao filho à esquerda
         left_child.keys.extend(right_child.keys)
+
+        # Adiciona os filhos do filho à direita ao filho à esquerda
         left_child.child.extend(right_child.child)
+
+        # Remove a chave correspondente e o filho à direita do nó atual
         self.keys.pop(index)
         self.child.pop(index + 1)
 
@@ -188,11 +197,11 @@ class Tree234:
                 return True
             return False
 
-        # Call the remove function starting from the root
+        # Chama a função de remoção a partir da raiz
         result = self.root._remove(key)
 
         if len(self.root.keys) == 0:
-            self.root = self.root.child[0]  # Update the root if it's empty
+            self.root = self.root.child[0]  # Atualiza a raiz se ela estiver vazia
 
         return result
 
@@ -200,22 +209,26 @@ class Tree234:
         print('\n Impressão em ordem\n')
         self.root._inorder()
 
-        
 
-def main():
+def insert_and_remove_demo():
     tree = Tree234()
     
+    # Inserir valores aleatorios
     tree.insert(10)
     tree.insert(20)
     tree.insert(30)
+    tree.insert(92)
     tree.insert(55)
     tree.insert(71)
+    tree.insert(74)
+    tree.insert(39)
     tree.insert(3)
     
     tree.visualize()
     tree.preorder()
     tree.inorder()
     
+    # Remover valores pares
     for x in range(100):
         if x % 2 == 0:
             tree.remove(x)
@@ -223,6 +236,9 @@ def main():
     tree.visualize()
     tree.preorder()
     tree.inorder()
+        
 
+def main():
+    insert_and_remove_demo()
 
 main()
